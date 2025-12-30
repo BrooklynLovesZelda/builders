@@ -1,45 +1,36 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { getHomePermalink, getAsset } from '~/utils/permalinks';
+import { getHomePermalink } from '~/utils/permalinks';
 import ImprintButton from './ImprintButton';
 
 const links = [
   {
-    title: 'Product',
+    title: 'Shop',
     items: [
-      { title: 'Features', href: 'https://wiki.cachyos.org/cachyos_basic/why_cachyos/' },
+      { title: 'Builds', href: '/download' },
+      { title: 'Budget selector', href: '/download#selector' },
+    ],
+  },
+  {
+    title: 'Company',
+    items: [
+      { title: 'About', href: '/about' },
       { title: 'Team', href: '/about/#team' },
     ],
   },
   {
-    title: 'Support',
+    title: 'Get in touch',
     items: [
-      { title: 'Docs', href: 'https://wiki.cachyos.org/' },
-      { title: 'Community Forum', href: 'https://discuss.cachyos.org/' },
-    ],
-  },
-  {
-    title: 'Distribution',
-    items: [
-      { title: 'About', href: '/about/#distribution' },
-      //{ title: 'Blog', href: '#' },
+      { title: 'Support', href: 'mailto:hello@builders.bybrooklyn.dev' },
+      { title: 'Quotes', href: 'mailto:hello@builders.bybrooklyn.dev' },
     ],
   },
 ];
 
 const social = [
-  { label: 'X', icon: 'tabler:brand-x', href: 'https://x.com/cachyos' },
-  {
-    label: 'Discord',
-    icon: 'tabler:brand-discord',
-    href: 'https://discord.gg/cachyos-862292009423470592',
-  },
-  { label: 'Mastodon', icon: 'tabler:brand-mastodon', href: 'https://fosstodon.org/@CachyOS' },
-  { label: 'Reddit', icon: 'tabler:brand-reddit', href: 'https://www.reddit.com/r/cachyos' },
-  { label: 'Patreon', icon: 'tabler:brand-patreon', href: 'https://www.patreon.com/CachyOS' },
-  { label: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/cachyos' },
-  { label: 'Mail', icon: 'tabler:mail-opened', href: 'mailto:admin@cachyos.org' },
-  { label: 'RSS Feed', icon: 'tabler:rss', href: getAsset('/rss.xml') },
+  { label: 'X', icon: 'tabler:brand-x', href: 'https://x.com/bybrooklyn' },
+  { label: 'LinkedIn', icon: 'tabler:brand-linkedin', href: 'https://www.linkedin.com' },
+  { label: 'Mail', icon: 'tabler:mail-opened', href: 'mailto:hello@builders.bybrooklyn.dev' },
 ];
 ---
 
@@ -49,16 +40,16 @@ const social = [
     <div class="grid grid-cols-12 gap-4 gap-y-8 sm:gap-8 py-8 md:py-12">
       <div class="col-span-12 lg:col-span-4">
         <div class="mb-2">
-          <a class="inline-block font-bold text-xl" href={getHomePermalink()}>CachyOS</a>
+          <a class="inline-block font-bold text-xl" href={getHomePermalink()}>Builders</a>
         </div>
         <div class="text-sm text-muted">
           <a
             class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2"
-            href="https://wiki.cachyos.org/policy/terms_of_service/">Terms</a
+            href="#">Terms</a
           >
           <a
             class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out mr-2 rtl:mr-0 rtl:ml-2"
-            href="https://wiki.cachyos.org/policy/privacy_policy/">Privacy Policy</a
+            href="#">Privacy Policy</a
           >
           <ImprintButton client:load />
         </div>
@@ -109,11 +100,11 @@ const social = [
           class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 rtl:mr-0 rtl:ml-1.5 float-left rtl:float-right rounded-xs bg-[url(~/assets/images/logo.svg)]"
         >
         </span>
-        Made by <a
-          class="text-blue-600 dark:text-white font-bold decoration-slate-400 decoration-dotted underline"
-          href="https://cachyos.org/"
+        Built by <a
+          class="text-[color:var(--color-primary)] dark:text-white font-bold decoration-slate-400 decoration-dotted underline"
+          href="https://builders.bybrooklyn.dev/"
         >
-          CachyOS</a
+          Builders</a
         > · All rights reserved.
       </div>
     </div>

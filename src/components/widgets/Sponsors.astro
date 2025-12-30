@@ -1,77 +1,37 @@
 ---
-import { Image } from 'astro:assets';
-import cdn77LogoSrc from '~/assets/images/CDN77_Horizontal_logo-negative.png';
-import cloudflareLogoSrc from '~/assets/images/CF_logo_stacked_whitetype.png';
-import frameworkLogoSrc from '~/assets/images/framework_logo.svg';
+const promises = [
+  {
+    name: 'Hand-picked parts',
+    description: 'We source reliable components and validate compatibility before we build.',
+  },
+  {
+    name: 'Stress-tested systems',
+    description: 'Every PC ships with stability testing and thermal validation.',
+  },
+  {
+    name: 'Built to upgrade',
+    description: 'Clear upgrade paths so your rig can evolve as your needs change.',
+  },
+];
 ---
 
 <section class="py-20">
   <div class="container px-4 mx-auto">
-    <div class="max-w-xl mx-auto mb-20 text-center">
-      <h2 class="mt-8 text-5xl lg:text-6xl font-bold font-heading">Our Sponsors</h2>
+    <div class="max-w-xl mx-auto mb-16 text-center">
+      <h2 class="mt-8 text-4xl lg:text-5xl font-bold font-heading">The Builders promise</h2>
+      <p class="mt-4 text-lg text-gray-600 dark:text-slate-400">
+        Transparent parts, clean builds, and reliable performance you can trust.
+      </p>
     </div>
-    <div class="flex flex-wrap justify-center -m-4">
-      <div class="flex w-full md:w-1/2 lg:w-1/5 p-4">
-        <div
-          class="flex w-full h-32 items-center justify-center bg-slate-900 dark:bg-slate-800 rounded-lg"
-        >
-          <div class="p-4 max-w-max overflow-hidden">
-            <a href="https://frame.work/">
-              <Image
-                src={frameworkLogoSrc}
-                class="transform hover:scale-105 transition ease-in-out duration-1000"
-                quality={90}
-                alt="frame.work"
-                width={1277}
-                height={432}
-                loading="lazy"
-                decoding="async"
-              />
-            </a>
+    <div class="grid gap-6 md:grid-cols-3">
+      {
+        promises.map(({ name, description }) => (
+          <div class="rounded-2xl border border-slate-200 dark:border-slate-700 p-6 bg-white/60 dark:bg-slate-900/30">
+            <h3 class="text-xl font-semibold mb-2">{name}</h3>
+            <p class="text-gray-600 dark:text-slate-400">{description}</p>
           </div>
-        </div>
-      </div>
-
-      <div class="flex w-full md:w-1/2 lg:w-1/5 p-4">
-        <div
-          class="flex w-full h-32 items-center justify-center bg-slate-900 dark:bg-slate-800 rounded-lg"
-        >
-          <div class="p-4 max-w-max overflow-hidden">
-            <a href="https://www.cdn77.com/">
-              <Image
-                src={cdn77LogoSrc}
-                class="transform hover:scale-105 transition ease-in-out duration-1000"
-                quality={90}
-                alt="www.cdn77.com"
-                width={1277}
-                height={432}
-                loading="lazy"
-                decoding="async"
-              />
-            </a>
-          </div>
-        </div>
-      </div>
-      <div class="flex w-full md:w-1/2 lg:w-1/5 p-4">
-        <div
-          class="flex w-full h-32 items-center justify-center bg-slate-900 dark:bg-slate-800 rounded-lg"
-        >
-          <div class="mb-6 p-4 max-w-max overflow-hidden">
-            <a href="https://www.cloudflare.com/">
-              <Image
-                src={cloudflareLogoSrc}
-                class="transform hover:scale-105 transition ease-in-out duration-1000"
-                quality={90}
-                alt="www.cloudflare.com"
-                width={1277}
-                height={432}
-                loading="lazy"
-                decoding="async"
-              />
-            </a>
-          </div>
-        </div>
-      </div>
+        ))
+      }
     </div>
   </div>
 </section>

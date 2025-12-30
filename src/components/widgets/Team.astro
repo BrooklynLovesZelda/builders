@@ -4,82 +4,28 @@ import { Icon } from 'astro-icon/components';
 
 const items = [
   {
-    name: 'Peter Jung (ptr1337)',
-    description: 'Founder, Developer',
-    avatar: '~/assets/images/ptr1337_avatar.png',
-    github_url: 'https://github.com/ptr1337',
-  },
-  {
-    name: 'Vladislav Nepogodin (vnepogodin)',
-    description: 'Founder, Developer',
-    avatar: '~/assets/images/cpp_code.jpg',
-    github_url: 'https://github.com/vnepogodin',
-  },
-  {
-    name: 'Piotr Gorski (sir_lucjan)',
-    description: 'Kernel maintainer, University lecturer from Poland',
+    name: 'Brooklyn',
+    description: 'Founder, lead builder',
     avatar: '~/assets/images/logo.svg',
-    github_url: 'https://github.com/sirlucjan',
+    github_url: 'mailto:hello@builders.bybrooklyn.dev',
   },
   {
-    name: 'Vasiliy Stelmachenok (ventureoo)',
-    description: 'Developer, Maintainer of ARU, CHWD, CachyOS-Settings, Nvidia Tweaks',
+    name: 'Build Tech',
+    description: 'Assembly, testing, and QA',
     avatar: '~/assets/images/logo.svg',
-    github_url: 'https://github.com/ventureoo',
+    github_url: 'mailto:hello@builders.bybrooklyn.dev',
   },
   {
-    name: 'Eric Naim (naim)',
-    description: 'Package and Kernel Maintainer',
+    name: 'Parts Specialist',
+    description: 'Sourcing and compatibility checks',
     avatar: '~/assets/images/logo.svg',
-    github_url: 'https://github.com/1Naim',
+    github_url: 'mailto:hello@builders.bybrooklyn.dev',
   },
   {
-    name: 'Harsh Peshwani (SoulHarsh007)',
-    description: 'Developer, Maintainer of Cachy Chroot, Website, Builder Dashboard',
-    avatar: '~/assets/images/soulharsh007_avatar.png',
-    github_url: 'https://github.com/SoulHarsh007',
-  },
-  {
-    name: 'Nekoh',
-    description: 'Developer, Maintainer of CachyOS Handheld Edition',
+    name: 'Support',
+    description: 'Order updates and build support',
     avatar: '~/assets/images/logo.svg',
-    github_url: 'https://github.com/Pogogo007',
-  },
-  {
-    name: 'Stelios Tsampas (loathingKernel)',
-    description: 'Developer, Maintainer of CachyOS Wine & Proton',
-    avatar: '~/assets/images/loathingkernel_avatar.png',
-    github_url: 'https://github.com/loathingKernel',
-  },
-  {
-    name: 'Vědomil Vildomec (Vilda)',
-    description: 'Contributor, Wiki, Documentation, Tutorials',
-    avatar: '~/assets/images/vilda_avatar.png',
-    github_url: 'https://github.com/SoongVilda',
-  },
-  {
-    name: 'firelzrd',
-    description: 'BORE Scheduler',
-    avatar: '~/assets/images/logo.svg',
-    github_url: 'https://github.com/firelzrd',
-  },
-  {
-    name: 'Luca Paglia (NextWorks)',
-    description: 'GFX, ART',
-    avatar: '~/assets/images/nextworks_avatar.png',
-    github_url: 'https://github.com/NextWork123',
-  },
-  {
-    name: 'Matias (Shendisx)',
-    description: 'Contributor, Wiki, Tester, CachyOS Ricer',
-    avatar: '~/assets/images/shendisx_avatar.png',
-    github_url: 'https://github.com/Shendisx',
-  },
-  {
-    name: 'Anton Ždanov (azdanov)',
-    description: 'Developer, Contributor, Wiki, Tester',
-    avatar: '~/assets/images/azdanov_avatar.png',
-    github_url: 'https://github.com/azdanov',
+    github_url: 'mailto:hello@builders.bybrooklyn.dev',
   },
 ];
 ---
@@ -88,10 +34,10 @@ const items = [
   <div class="py-8 px-4 mx-auto max-w-(--breakpoint-xl) text-center lg:py-16 lg:px-6">
     <div class="mx-auto mb-8 max-w-(--breakpoint-sm) lg:mb-16">
       <h2 class="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-        Meet our team!
+        Meet the Builders team
       </h2>
       <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">
-        Meet the people behind CachyOS!
+        Builders who spec, assemble, and test every system we ship.
       </p>
     </div>
     <div class="grid gap-8 lg:gap-16 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -122,10 +68,10 @@ const items = [
               <li>
                 <a
                   class="text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-hidden focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
-                  aria-label="Github"
+                  aria-label="Email"
                   href={github_url}
                 >
-                  <Icon name="tabler:brand-github" class="w-5 h-5" />
+                  <Icon name="tabler:mail" class="w-5 h-5" />
                 </a>
               </li>
             </ul>

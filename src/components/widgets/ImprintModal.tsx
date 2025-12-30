@@ -56,21 +56,20 @@ const ImprintModal = ({ isOpen, onClose }: Readonly<{ isOpen: boolean; onClose: 
                   Imprint
                 </DialogTitle>
                 <div className="mt-2 space-y-0.5">
-                  <p>Peter Jung</p>
-                  <p>Paarstraße 40</p>
-                  <p>86453 Dasing</p>
-                  <p>Germany</p>
+                  <p>Builders by Brooklyn</p>
+                  <p>Custom PC storefront</p>
+                  <p>Remote-first</p>
                   <br />
                   <p>Contact:</p>
                   <p>
                     E-Mail:{' '}
                     <a
-                      href="mailto:ptr1337@cachyos.org"
+                      href="mailto:hello@builders.bybrooklyn.dev"
                       target="_blank"
                       rel="noopener"
                       className="dark:text-white font-bold decoration-slate-400 underline decoration-dotted"
                     >
-                      ptr1337@cachyos.org
+                      hello@builders.bybrooklyn.dev
                     </a>
                   </p>
                 </div>

@@ -3,16 +3,20 @@ import { getPermalink } from './utils/permalinks';
 export const headerData = {
   links: [
     {
-      text: 'Download',
+      text: 'Shop',
       href: getPermalink('/download'),
+    },
+    {
+      text: 'Budget',
+      href: getPermalink('/download#selector'),
     },
     {
       text: 'About',
       href: getPermalink('/about'),
     },
     {
-      text: 'Github',
-      href: 'https://github.com/cachyos',
+      text: 'Support',
+      href: 'mailto:hello@builders.bybrooklyn.dev',
     },
   ],
 };
@@ -20,22 +24,25 @@ export const headerData = {
 export const footerData = {
   links: [
     {
-      title: 'Product',
+      title: 'Shop',
       links: [
-        { text: 'Features', href: 'https://wiki.cachyos.org/cachyos_basic/why_cachyos/' },
+        { text: 'Builds', href: getPermalink('/download') },
+        { text: 'Budget selector', href: getPermalink('/download#selector') },
+      ],
+    },
+    {
+      title: 'Company',
+      links: [
+        { text: 'About', href: getPermalink('/about') },
         { text: 'Team', href: getPermalink('/about/#team') },
       ],
     },
     {
-      title: 'Support',
+      title: 'Connect',
       links: [
-        { text: 'Docs', href: 'https://wiki.cachyos.org/' },
-        { text: 'Community Forum', href: 'https://discuss.cachyos.org/' },
+        { text: 'Support', href: 'mailto:hello@builders.bybrooklyn.dev' },
+        { text: 'Quotes', href: 'mailto:hello@builders.bybrooklyn.dev' },
       ],
-    },
-    {
-      title: 'Distribution',
-      links: [{ text: 'About', href: getPermalink('/about/#distribution') }],
     },
   ],
   secondaryLinks: [
@@ -43,18 +50,16 @@ export const footerData = {
     { text: 'Privacy Policy', href: '#' },
   ],
   socialLinks: [
-    { arialabel: 'X', icon: 'tabler:brand-x', href: 'https://x.com/cachyos' },
+    { arialabel: 'X', icon: 'tabler:brand-x', href: 'https://x.com/bybrooklyn' },
+    { arialabel: 'LinkedIn', icon: 'tabler:brand-linkedin', href: 'https://www.linkedin.com' },
     {
-      arialabel: 'Discord',
-      icon: 'tabler:brand-discord',
-      href: 'https://discord.gg/cachyos-862292009423470592',
+      arialabel: 'Email',
+      icon: 'tabler:mail-opened',
+      href: 'mailto:hello@builders.bybrooklyn.dev',
     },
-    { arialabel: 'Reddit', icon: 'tabler:brand-reddit', href: 'https://www.reddit.com/r/cachyos' },
-    { arialabel: 'Patreon', icon: 'tabler:brand-patreon', href: 'https://www.patreon.com/CachyOS' },
-    { arialabel: 'Github', icon: 'tabler:brand-github', href: 'https://github.com/cachyos' },
   ],
   footNote: `
     <span class="w-5 h-5 md:w-6 md:h-6 md:-mt-0.5 bg-cover mr-1.5 float-left rounded-xs bg-[url(~/assets/images/logo.svg)]"></span>
-    Made by <a class="text-blue-600 dark:text-white font-bold decoration-slate-400 decoration-dotted underline" href="https://cachyos.org/"> CachyOS</a> · All rights reserved.
+    Built by <a class="text-[color:var(--color-primary)] dark:text-white font-bold decoration-slate-400 decoration-dotted underline" href="https://builders.bybrooklyn.dev/"> Builders</a> · All rights reserved.
   `,
 };

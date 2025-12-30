@@ -1,15 +1,15 @@
-import defaultImage from './assets/images/default.png';
+import defaultImage from './assets/images/logo.svg';
 
 const CONFIG = {
-  name: 'CachyOS',
+  name: 'Builders',
 
-  origin: 'https://cachyos.org/',
+  origin: 'https://builders.bybrooklyn.dev/',
   basePathname: '/',
   trailingSlash: false,
 
-  title: 'CachyOS — Blazingly Fast OS based on Arch Linux',
+  title: 'Builders — Custom PCs Built to Perform',
   description:
-    '🚀 CachyOS is an Arch Linux-based distribution that offers an easy installation, several customization options to suit every user, and special optimizations for improved performance while remaining simple.',
+    'Builders designs and assembles custom PCs for gaming, creator, and workstation needs with curated parts, clean cable work, and Stripe-secured checkout.',
   defaultImage: defaultImage,
 
   defaultTheme: 'dark', // Values: "system" | "light" | "dark" | "light:only" | "dark:only"

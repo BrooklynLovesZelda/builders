@@ -1,6 +1,6 @@
-# CachyOS Website
+# Builders Website
 
-Static site for CachyOS, built with Astro. Origin: `https://cachyos.org/`.
+Static storefront for Builders custom PCs, built with Astro. Origin: `https://builders.bybrooklyn.dev/`.
 
 ## Scripts
 

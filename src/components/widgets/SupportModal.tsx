@@ -5,23 +5,18 @@ import { useCopyToClipboard } from '~/utils/hooks';
 
 const supportOptions: SupportOption[] = [
   {
-    label: 'Bitcoin',
-    text: 'bc1qmwglfchlc335du6pcu6w64cexu7cck0mzhyw42',
-    mode: 'text',
+    label: 'Email',
+    text: 'mailto:hello@builders.bybrooklyn.dev',
+    mode: 'link',
   },
   {
-    label: 'Ethereum',
-    text: '0xc2dc77327F78A7B85Db3941Eb49e74F41E961649',
-    mode: 'text',
+    label: 'Build request',
+    text: 'mailto:hello@builders.bybrooklyn.dev?subject=Custom%20PC%20Quote',
+    mode: 'link',
   },
   {
-    label: 'Litecoin',
-    text: 'LgGTwcEBcXqMgNT6XyyNWABMb7dZVtVg9w',
-    mode: 'text',
-  },
-  {
-    label: 'Patreon',
-    text: 'https://www.patreon.com/CachyOS',
+    label: 'Shop builds',
+    text: 'https://builders.bybrooklyn.dev/download',
     mode: 'link',
   },
 ];
@@ -166,7 +161,7 @@ const SupportModal = ({ isOpen, onClose }: Readonly<{ isOpen: boolean; onClose: 
                   as="h3"
                   className="text-lg font-medium leading-6 text-gray-900 dark:text-slate-200 text-center"
                 >
-                  Support Options
+                  Request a build
                 </DialogTitle>
                 <div className="mt-2 space-y-2">
                   {supportOptions.map((x) => (

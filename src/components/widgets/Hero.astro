@@ -2,7 +2,7 @@
 import { Icon } from 'astro-icon/components';
 import Image from '~/components/common/Image.astro';
 
-import heroImage from '~/assets/images/hero.jpg';
+import heroImage from '~/assets/images/hero.svg';
 
 //class="bg-slate-900 hover:bg-slate-700 focus:outline-hidden focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50 text-white font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto dark:bg-sky-500 dark:highlight-white/20 dark:hover:bg-sky-400"
 ---
@@ -30,8 +30,8 @@ import heroImage from '~/assets/images/hero.jpg';
         y2="474.645"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#9089FC"></stop>
-        <stop offset="1" stop-color="#FF80B5"></stop>
+        <stop stop-color="#f97316"></stop>
+        <stop offset="1" stop-color="#111111"></stop>
       </linearGradient>
     </defs>
   </svg>
@@ -43,19 +43,18 @@ import heroImage from '~/assets/images/hero.jpg';
         <h1
           class="text-slate-900 font-extrabold text-4xl sm:text-5xl lg:text-6xl tracking-tight text-center dark:text-white font-heading"
         >
-          <span class="sm:whitespace-nowrap">Blazingly Fast</span> & Customizable
-          <span>Linux distribution</span>
+          <span class="sm:whitespace-nowrap">Custom PCs</span> built for
+          <span>how you play & work</span>
         </h1>
         <p
           class="mt-6 max-w-3xl mx-auto text-lg text-slate-600 mb-8 text-center mx-auto dark:text-slate-400"
         >
           <span
-            class="font-semibold underline decoration-1 decoration-primary-600 underline-offset-2"
-            >CachyOS</span
-          > is designed to deliver lightning-fast speeds and stability, ensuring a smooth and enjoyable
-          computing experience every time you use it. Whether you're a seasoned Linux user or just starting
-          out, CachyOS is the ideal choice for those looking for a powerful, customizable and blazingly
-          fast operating system.
+            class="font-semibold underline decoration-1 decoration-[color:var(--color-primary)] underline-offset-2"
+            >Builders</span
+          >
+          designs, assembles, and tunes high-performance PCs with clean cable work and verified thermals.
+          Choose a build or create a custom configuration and check out securely with Stripe.
         </p>
         <div
           class="max-w-xs text-sm sm:mt-10 sm:max-w-md mt-6 m-auto flex flex-nowrap flex-col sm:flex-row sm:justify-center gap-4"
@@ -64,11 +63,11 @@ import heroImage from '~/assets/images/hero.jpg';
             class="btn btn-primary font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto"
             href="/download"
           >
-            <Icon name="tabler:download" class="w-5 h-5 mr-1 -ml-1.5" /> Download
+            <Icon name="tabler:cpu" class="w-5 h-5 mr-1 -ml-1.5" /> Shop builds
           </a>
           <a
             class="btn font-semibold h-12 px-6 rounded-lg w-full flex items-center justify-center sm:w-auto"
-            href="#features">Learn more</a
+            href="/download#selector">Set budget & use case</a
           >
         </div>
       </div>
@@ -80,7 +79,7 @@ import heroImage from '~/assets/images/hero.jpg';
           class="mx-auto rounded-md w-full"
           widths={[400, 768, 1480]}
           sizes="(max-width: 767px) 400px, (max-width: 1479px) 768px, 1480px"
-          alt="Hero"
+          alt="Custom PC build showcase"
           aspectRatio={1480 / 833}
           width={1480}
           height={833}

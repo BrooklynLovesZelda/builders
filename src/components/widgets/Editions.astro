@@ -1,143 +1,591 @@
 ---
-import { Image } from 'astro:assets';
-//import Image from '~/components/common/Image.astro';
-import DropdownMenu from '~/components/widgets/DropdownMenu';
-import { ISOEdition, ISOSource, generateDownloadLink } from '~/utils/utils';
-import versions from '~/versions';
-
-interface DropdownMenuProps {
-  title: string;
-  direct_url: string;
-  srcforge_url?: string;
-  magenet_url?: string;
-  torrent_url?: string;
-}
-
-const [desktop_magnet, handheld_magnet] = await Promise.all(
-  [
-    generateDownloadLink(ISOEdition.DESKTOP, versions.desktopISOVersion, ISOSource.MAGNET),
-    generateDownloadLink(ISOEdition.HANDHELD, versions.handheldISOVersion, ISOSource.MAGNET),
-  ].map(async (url) =>
-    fetch(url)
-      .then((res) => res.text())
-      .catch(() => url)
-  )
-);
-
-const items = [
-  [
-    {
-      title: 'Desktop Edition',
-      description:
-        'Empower your computing with a modern, customizable desktop environment — browse the web, stay connected with friends and family, manage files, enjoy multimedia, and work efficiently in a visually stunning interface that adapts to your needs. Benefit from Free and Open Source Software with a focus on security, privacy, and peace of mind.',
-      direct_url: generateDownloadLink(
-        ISOEdition.DESKTOP,
-        versions.desktopISOVersion,
-        ISOSource.DIRECT
-      ),
-      srcforge_url: generateDownloadLink(
-        ISOEdition.DESKTOP,
-        versions.desktopISOVersion,
-        ISOSource.SOURCEFORGE
-      ),
-      magnet_url: desktop_magnet,
-      torrent_url: generateDownloadLink(
-        ISOEdition.DESKTOP,
-        versions.desktopISOVersion,
-        ISOSource.TORRENT
-      ),
-      preview: import('~/assets/images/kde.png'),
-    },
-    {
-      title: 'Handheld Edition',
-      description:
-        'The CachyOS Handheld Edition provides a GameMode-like experience and comes with preinstalled gaming tools. It officially supports the ROG Ally, Steam Deck OLED and LCD, Legion Go, and Lenovo Legion Go S. At the moment, only KDE Plasma is supported.',
-      direct_url: generateDownloadLink(
-        ISOEdition.HANDHELD,
-        versions.handheldISOVersion,
-        ISOSource.DIRECT
-      ),
-      srcforge_url: generateDownloadLink(
-        ISOEdition.HANDHELD,
-        versions.handheldISOVersion,
-        ISOSource.SOURCEFORGE
-      ),
-      magnet_url: handheld_magnet,
-      torrent_url: generateDownloadLink(
-        ISOEdition.HANDHELD,
-        versions.handheldISOVersion,
-        ISOSource.TORRENT
-      ),
-      preview: import('~/assets/images/handheld.png'),
-    },
+const budgetPresets = [
+  { label: '$700', value: 700 },
+  { label: '$900', value: 900 },
+  { label: '$1500', value: 1500 },
+  { label: '$2200', value: 2200 },
+  { label: '$3000', value: 3000 },
+  { label: '$3500', value: 3500 },
+];
+const cpuBrands = [
+  { id: 'intel', label: 'Intel' },
+  { id: 'amd', label: 'AMD' },
+];
+const gpuTypes = [
+  { id: 'nvidia', label: 'NVIDIA' },
+  { id: 'amd', label: 'AMD Radeon' },
+  { id: 'intel', label: 'Intel' },
+];
+const gpuModels = {
+  nvidia: [
+    { id: 'nvidia-5050', label: 'NVIDIA 5050' },
+    { id: 'nvidia-5060', label: 'NVIDIA 5060' },
+    { id: 'nvidia-5070', label: 'NVIDIA 5070' },
+    { id: 'nvidia-5070-ti', label: 'NVIDIA 5070 Ti' },
+    { id: 'nvidia-5080', label: 'NVIDIA 5080' },
+    { id: 'nvidia-5090', label: 'NVIDIA 5090' },
   ],
+  amd: [
+    { id: 'amd-9060-xt-16gb', label: 'AMD 9060 XT 16GB' },
+    { id: 'amd-9070-xt', label: 'AMD 9070 XT' },
+  ],
+  intel: [{ id: 'intel-b580', label: 'Intel B580' }],
+};
+const coolingOptions = [
+  { id: 'air', label: 'Air cooling' },
+  { id: 'aio', label: 'AIO liquid cooling' },
+  { id: 'quiet', label: 'Quiet-first build' },
+];
+const lightingOptions = [
+  { id: 'rgb', label: 'RGB lighting' },
+  { id: 'subtle', label: 'Subtle lighting' },
+  { id: 'none', label: 'No lighting' },
+];
+const osOptions = [
+  { id: 'win11-25h2', label: 'Windows 11 25H2' },
+  { id: 'win11-24h2', label: 'Windows 11 24H2' },
+  { id: 'linux', label: 'Linux' },
+  { id: 'none', label: 'No OS' },
+];
+const linuxDistros = [
+  { id: 'bazzite', label: 'Bazzite (recommended)' },
+  { id: 'cachyos', label: 'CachyOS' },
+  { id: 'zorin', label: 'Zorin OS' },
+  { id: 'ubuntu', label: 'Ubuntu (not recommended)' },
 ];
 ---
 
-<section class="scroll-mt-16">
+<section class="scroll-mt-16" id="selector">
   <div class="flex x-auto space-y-6 justify-center md:space-y-0 p-9">
-    {
-      items.map((subitems) => (
-        <div class="container sm:px-8 mx-auto">
-          {subitems.map(
-            ({
-              title,
-              description,
-              direct_url,
-              srcforge_url,
-              magnet_url,
-              torrent_url,
-              preview,
-            }) => (
-              <div class="flex flex-wrap items-center -m-8 my-20 pb-[calc(20vh)]">
-                <div class="w-full md:w-1/2 p-8">
-                  <h2 class="mb-9 text-6xl md:text-8xl xl:text-10xl font-bold font-heading tracking-px-n leading-none">
-                    {title}
-                  </h2>
-                  <p class="mb-10 text-lg text-gray-900 dark:text-slate-400 font-medium leading-relaxed md:max-w-md">
-                    {description}
-                  </p>
-                  <div class="mb-11 md:inline-block rounded-xl shadow-4xl bg-primary-500 dark:bg-primary-700 dropdown">
-                    {direct_url && (
-                      <DropdownMenu
-                        client:load
-                        data={
-                          {
-                            title,
-                            direct_url,
-                            srcforge_url,
-                            magnet_url,
-                            torrent_url,
-                          } as DropdownMenuProps
-                        }
-                      />
-                    )}
-                    {!direct_url && !srcforge_url && (
-                      <div>
-                        <button type="button" class="btn-under-constuction py-4 px-6">
-                          Under construction 🚧
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div class="w-full md:w-1/2 p-8">
-                  {preview && (
-                    <Image
-                      src={preview}
-                      class="transform hover:-translate-x-16 rounded-xl transition ease-in-out duration-1000"
-                      alt=""
-                      loading="eager"
-                      width={1920}
-                      height={1080}
+    <div class="container sm:px-8 mx-auto">
+      <div class="flex flex-wrap items-center -m-6 my-16 pb-[calc(14vh)]">
+        <div class="w-full md:w-1/2 p-6">
+          <p class="text-sm uppercase tracking-wide text-[color:var(--color-primary)] dark:text-[color:var(--color-primary)] font-semibold">
+            Drag to set your budget
+          </p>
+          <h2 class="mb-6 text-5xl md:text-6xl xl:text-7xl font-bold font-heading tracking-px-n leading-none">
+            Budget + use case selector
+          </h2>
+          <p class="mb-6 text-lg text-gray-900 dark:text-slate-400 font-medium leading-relaxed md:max-w-md">
+            Slide your target budget, then pick your use case. We will design a parts list and confirm
+            every component before you check out with Stripe.
+          </p>
+          <div class="mb-6" data-budget-section>
+            <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
+              Budget range
+            </label>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs uppercase tracking-wide text-gray-500 dark:text-slate-400">
+                Selected budget
+              </span>
+              <span
+                class="text-sm font-semibold text-[color:var(--color-primary)]"
+                data-budget-display
+              >
+                $1500
+              </span>
+            </div>
+            <input
+              type="range"
+              min="700"
+              max="3500"
+              step="100"
+              value="1500"
+              class="w-full accent-[color:var(--color-primary)]"
+              aria-label="Budget range"
+              list="budget-steps"
+              name="budget"
+            />
+            <datalist id="budget-steps">
+              {budgetPresets.map(({ value }) => (
+                <option value={value}></option>
+              ))}
+            </datalist>
+            <div class="flex justify-between text-xs text-gray-500 dark:text-slate-400 mt-2">
+              {budgetPresets.map(({ label }) => (
+                <span>{label}</span>
+              ))}
+            </div>
+            <div class="mt-2 text-sm text-gray-700 dark:text-slate-300">
+              Current selection:
+              <span
+                class="ml-2 font-semibold text-[color:var(--color-primary)]"
+                data-budget-display-bottom
+              >
+                $1500
+              </span>
+            </div>
+          </div>
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
+              Your name
+            </label>
+            <input
+              type="text"
+              name="customerName"
+              placeholder="Your name"
+              class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/40 px-4 py-3 text-sm text-gray-900 dark:text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-[color:var(--color-primary)]"
+            />
+          </div>
+          <div class="mb-8">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-slate-200 mb-4">
+              Quick preferences
+            </h3>
+            <p class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-3">Operating system</p>
+            <div class="grid gap-2 sm:grid-cols-2">
+              {osOptions.map(({ id, label }) => (
+                <label
+                  for={`os-${id}`}
+                  class="cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700 p-3 hover:border-[color:var(--color-primary)] transition"
+                >
+                  <input
+                    type="radio"
+                    id={`os-${id}`}
+                    name="os"
+                    value={id}
+                    class="mr-2 accent-[color:var(--color-primary)]"
+                  />
+                  <span class="font-semibold text-sm">{label}</span>
+                </label>
+              ))}
+            </div>
+            <div
+              class="mt-3 rounded-xl border border-dashed border-slate-200 dark:border-slate-700 p-3"
+              data-linux-distro
+              hidden
+            >
+              <p class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
+                Linux distro preference (if Linux is selected)
+              </p>
+              <div class="grid gap-2 sm:grid-cols-2">
+                {linuxDistros.map(({ id, label }) => (
+                  <label
+                    for={`distro-${id}`}
+                    class="cursor-pointer rounded-lg border border-slate-200 dark:border-slate-700 p-2 hover:border-[color:var(--color-primary)] transition"
+                  >
+                    <input
+                      type="radio"
+                      id={`distro-${id}`}
+                      name="distro"
+                      value={id}
+                      data-distro={id}
+                      class="mr-2 accent-[color:var(--color-primary)]"
                     />
-                  )}
+                    <span class="text-sm">{label}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+          <details class="mb-8 rounded-2xl border border-slate-200 dark:border-slate-700 p-4" data-advanced>
+            <summary class="cursor-pointer font-semibold text-gray-800 dark:text-slate-200">
+              Advanced spec preferences
+            </summary>
+            <div class="mt-4">
+              <div class="mb-6">
+                <p class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Memory</p>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs uppercase tracking-wide text-gray-500 dark:text-slate-400">
+                    Selected RAM
+                  </span>
+                  <span
+                    class="text-sm font-semibold text-[color:var(--color-primary)]"
+                    data-ram-display
+                  >
+                    32GB
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="0"
+                  max="3"
+                  step="1"
+                  value="1"
+                  name="ram"
+                  class="w-full accent-[color:var(--color-primary)]"
+                  aria-label="Memory selection"
+                />
+                <div class="flex justify-between text-xs text-gray-500 dark:text-slate-400 mt-2">
+                  <span>16GB</span>
+                  <span>32GB</span>
+                  <span>64GB</span>
+                  <span>128GB</span>
                 </div>
               </div>
-            )
-          )}
+              <div class="mb-6">
+                <p class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-3">
+                  CPU preference
+                </p>
+                <div class="grid gap-2 sm:grid-cols-3">
+                  {cpuBrands.map(({ id, label }) => (
+                    <label
+                      for={`cpu-${id}`}
+                      class="cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700 p-3 hover:border-[color:var(--color-primary)] transition"
+                    >
+                      <input
+                        type="radio"
+                        id={`cpu-${id}`}
+                        name="cpu"
+                        value={id}
+                        class="mr-2 accent-[color:var(--color-primary)]"
+                      />
+                      <span class="font-semibold text-sm">{label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div class="mb-6">
+                <p class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Memory</p>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs uppercase tracking-wide text-gray-500 dark:text-slate-400">
+                    Selected RAM
+                  </span>
+                  <span
+                    class="text-sm font-semibold text-[color:var(--color-primary)]"
+                    data-ram-display
+                  >
+                    32GB
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="16"
+                  max="128"
+                  step="16"
+                  value="32"
+                  name="ram"
+                  class="w-full accent-[color:var(--color-primary)]"
+                  aria-label="Memory selection"
+                />
+                <div class="flex justify-between text-xs text-gray-500 dark:text-slate-400 mt-2">
+                  <span>16GB</span>
+                  <span>32GB</span>
+                  <span>64GB</span>
+                  <span>128GB</span>
+                </div>
+              </div>
+              <div class="mt-5">
+                <p class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">Storage</p>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="text-xs uppercase tracking-wide text-gray-500 dark:text-slate-400">
+                    Selected SSD
+                  </span>
+                  <span
+                    class="text-sm font-semibold text-[color:var(--color-primary)]"
+                    data-storage-display
+                  >
+                    2TB
+                  </span>
+                </div>
+                <input
+                  type="range"
+                  min="1"
+                  max="4"
+                  step="1"
+                  value="2"
+                  name="storage"
+                  class="w-full accent-[color:var(--color-primary)]"
+                  aria-label="Storage selection"
+                />
+                <div class="flex justify-between text-xs text-gray-500 dark:text-slate-400 mt-2">
+                  <span>1TB</span>
+                  <span>2TB</span>
+                  <span>3TB</span>
+                  <span>4TB</span>
+                </div>
+              </div>
+              <div class="mt-5">
+                <p class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-3">GPU type</p>
+                <div class="grid gap-2 sm:grid-cols-3">
+                  {gpuTypes.map(({ id, label }) => (
+                    <label
+                      for={`gpu-${id}`}
+                      class="cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700 p-3 hover:border-[color:var(--color-primary)] transition"
+                    >
+                      <input
+                        type="radio"
+                        id={`gpu-${id}`}
+                        name="gpu"
+                        value={id}
+                        class="mr-2 accent-[color:var(--color-primary)]"
+                      />
+                      <span class="font-semibold text-sm">{label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div class="mt-4" data-gpu-models hidden>
+                <p class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-3">GPU model</p>
+                <div class="grid gap-2 sm:grid-cols-2" data-gpu-models-grid>
+                  {gpuModels.nvidia.map(({ id, label }) => (
+                    <label
+                      for={`gpu-model-${id}`}
+                      class="cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700 p-3 hover:border-[color:var(--color-primary)] transition"
+                      data-gpu-model
+                      data-gpu-type="nvidia"
+                    >
+                      <input
+                        type="radio"
+                        id={`gpu-model-${id}`}
+                        name="gpuModel"
+                        value={id}
+                        class="mr-2 accent-[color:var(--color-primary)]"
+                      />
+                      <span class="font-semibold text-sm">{label}</span>
+                    </label>
+                  ))}
+                  {gpuModels.amd.map(({ id, label }) => (
+                    <label
+                      for={`gpu-model-${id}`}
+                      class="cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700 p-3 hover:border-[color:var(--color-primary)] transition"
+                      data-gpu-model
+                      data-gpu-type="amd"
+                    >
+                      <input
+                        type="radio"
+                        id={`gpu-model-${id}`}
+                        name="gpuModel"
+                        value={id}
+                        class="mr-2 accent-[color:var(--color-primary)]"
+                      />
+                      <span class="font-semibold text-sm">{label}</span>
+                    </label>
+                  ))}
+                  {gpuModels.intel.map(({ id, label }) => (
+                    <label
+                      for={`gpu-model-${id}`}
+                      class="cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700 p-3 hover:border-[color:var(--color-primary)] transition"
+                      data-gpu-model
+                      data-gpu-type="intel"
+                    >
+                      <input
+                        type="radio"
+                        id={`gpu-model-${id}`}
+                        name="gpuModel"
+                        value={id}
+                        class="mr-2 accent-[color:var(--color-primary)]"
+                      />
+                      <span class="font-semibold text-sm">{label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div class="mt-5">
+                <p class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-3">Cooling</p>
+                <div class="grid gap-2 sm:grid-cols-3">
+                  {coolingOptions.map(({ id, label }) => (
+                    <label
+                      for={`cooling-${id}`}
+                      class="cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700 p-3 hover:border-[color:var(--color-primary)] transition"
+                    >
+                      <input
+                        type="radio"
+                        id={`cooling-${id}`}
+                        name="cooling"
+                        value={id}
+                        class="mr-2 accent-[color:var(--color-primary)]"
+                      />
+                      <span class="font-semibold text-sm">{label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+              <div class="mt-5">
+                <p class="text-sm font-semibold text-gray-700 dark:text-slate-300 mb-3">Lighting</p>
+                <div class="grid gap-2 sm:grid-cols-3">
+                  {lightingOptions.map(({ id, label }) => (
+                    <label
+                      for={`lighting-${id}`}
+                      class="cursor-pointer rounded-xl border border-slate-200 dark:border-slate-700 p-3 hover:border-[color:var(--color-primary)] transition"
+                    >
+                      <input
+                        type="radio"
+                        id={`lighting-${id}`}
+                        name="lighting"
+                        value={id}
+                        class="mr-2 accent-[color:var(--color-primary)]"
+                      />
+                      <span class="font-semibold text-sm">{label}</span>
+                    </label>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </details>
+          <div class="mb-6">
+            <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-2">
+              Notes about parts, games, or apps
+            </label>
+            <textarea
+              name="notes"
+              rows="4"
+              placeholder="Example: Call of Duty at 1440p, Blender renders, quiet fans, no RGB.\nExample: Lightroom, Premiere Pro, dual monitors, 2TB SSD.\nExample: Mini ITX case, Linux Bazzite, streaming setup."
+              class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white/80 dark:bg-slate-900/40 px-4 py-3 text-sm text-gray-900 dark:text-slate-200 focus:outline-hidden focus:ring-2 focus:ring-[color:var(--color-primary)]"
+            ></textarea>
+          </div>
+          <div class="md:inline-block rounded-xl shadow-4xl">
+            <button
+              type="button"
+              class="btn btn-primary font-semibold py-4 px-6 inline-flex items-center"
+              data-quote-button
+            >
+              Request a quote
+            </button>
+          </div>
+          <p class="mt-3 text-sm text-gray-600 dark:text-slate-400">
+            Questions about parts? Email
+            <a
+              class="font-semibold text-[color:var(--color-primary)] underline decoration-dotted"
+              href="mailto:hello@builders.bybrooklyn.dev?subject=Parts%20Question"
+            >
+              hello@builders.bybrooklyn.dev
+            </a>
+            and we will help.
+          </p>
         </div>
-      ))
-    }
+        <div class="w-full md:w-1/2 p-6">
+          <div class="rounded-3xl border border-slate-200 dark:border-slate-700 p-6 bg-white/60 dark:bg-slate-900/40">
+            <h3 class="text-xl font-semibold mb-3">What happens next</h3>
+            <ul class="space-y-2 text-gray-700 dark:text-slate-400">
+              <li>We confirm your budget and use case details.</li>
+              <li>We design a parts list with upgrade options.</li>
+              <li>You approve the build and timeline.</li>
+              <li>Stripe Checkout secures payment and receipt.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
+
+<script>
+  const linuxDistro = document.querySelector('[data-linux-distro]');
+  const osInputs = document.querySelectorAll('input[name="os"]');
+  const budgetDisplay = document.querySelector('[data-budget-display]');
+  const budgetDisplayBottom = document.querySelector('[data-budget-display-bottom]');
+  const budgetInput = document.querySelector('input[type="range"][name="budget"]');
+  const budgetSection = document.querySelector('[data-budget-section]');
+  const advancedSection = document.querySelector('[data-advanced]');
+  const ramInput = document.querySelector('input[type="range"][name="ram"]');
+  const storageInput = document.querySelector('input[type="range"][name="storage"]');
+  const ramDisplay = document.querySelector('[data-ram-display]');
+  const storageDisplay = document.querySelector('[data-storage-display]');
+  const gpuTypeInputs = document.querySelectorAll('input[name="gpu"]');
+  const gpuModelsSection = document.querySelector('[data-gpu-models]');
+  const gpuModelItems = document.querySelectorAll('[data-gpu-model]');
+  const bazziteInput = document.querySelector('input[name="distro"][data-distro="bazzite"]');
+  const syncLinuxDistro = () => {
+    if (!linuxDistro) return;
+    const selected = document.querySelector('input[name="os"]:checked');
+    const isLinux = selected?.value === 'linux';
+    linuxDistro.toggleAttribute('hidden', !isLinux);
+    if (isLinux && bazziteInput && !document.querySelector('input[name="distro"]:checked')) {
+      bazziteInput.checked = true;
+    }
+  };
+  osInputs.forEach((input) => input.addEventListener('change', syncLinuxDistro));
+  syncLinuxDistro();
+
+  const quoteButton = document.querySelector('[data-quote-button]');
+  const budgetRange = budgetInput;
+  const budgetFallback = document.querySelector('input[type="range"]');
+  const updateBudgetDisplay = () => {
+    const value = budgetRange?.value || budgetFallback?.value || '1500';
+    if (budgetDisplay) budgetDisplay.textContent = `$${value}`;
+    if (budgetDisplayBottom) budgetDisplayBottom.textContent = `$${value}`;
+  };
+  budgetRange?.addEventListener('input', updateBudgetDisplay);
+  updateBudgetDisplay();
+  const syncBudgetVisibility = () => {
+    if (!budgetSection || !advancedSection) return;
+    const hide = advancedSection.hasAttribute('open');
+    budgetSection.toggleAttribute('hidden', hide);
+  };
+  advancedSection?.addEventListener('toggle', syncBudgetVisibility);
+  syncBudgetVisibility();
+  const ramSteps = ['16', '32', '64', '128'];
+  const updateRamDisplay = () => {
+    if (!ramDisplay) return;
+    const index = Number(ramInput?.value || '1');
+    const value = ramSteps[Math.min(Math.max(index, 0), ramSteps.length - 1)];
+    ramDisplay.textContent = `${value}GB`;
+  };
+  const updateStorageDisplay = () => {
+    if (!storageDisplay) return;
+    const value = storageInput?.value || '2';
+    storageDisplay.textContent = `${value}TB`;
+  };
+  ramInput?.addEventListener('input', updateRamDisplay);
+  storageInput?.addEventListener('input', updateStorageDisplay);
+  updateRamDisplay();
+  updateStorageDisplay();
+  const syncGpuModels = () => {
+    if (!gpuModelsSection) return;
+    const selected = document.querySelector('input[name="gpu"]:checked')?.value;
+    const show = selected === 'nvidia' || selected === 'amd' || selected === 'intel';
+    gpuModelsSection.toggleAttribute('hidden', !show);
+    if (!show) return;
+    gpuModelItems.forEach((item) => {
+      const type = item.getAttribute('data-gpu-type');
+      const match = type === selected;
+      item.classList.toggle('hidden', !match);
+    });
+    if (selected && !document.querySelector('input[name="gpuModel"]:checked')) {
+      const firstVisible = document.querySelector(
+        `[data-gpu-model][data-gpu-type="${selected}"] input[name="gpuModel"]`
+      );
+      if (firstVisible) firstVisible.checked = true;
+    }
+  };
+  gpuTypeInputs.forEach((input) => input.addEventListener('change', syncGpuModels));
+  syncGpuModels();
+  const buildMailto = () => {
+    const budget = budgetRange?.value || budgetFallback?.value || '1500';
+    const name = document.querySelector('input[name="customerName"]')?.value || '';
+    const cpu = document.querySelector('input[name="cpu"]:checked')?.value || 'no-preference';
+    const ramIndex = Number(ramInput?.value || '1');
+    const ram = ramSteps[Math.min(Math.max(ramIndex, 0), ramSteps.length - 1)];
+    const gpu = document.querySelector('input[name="gpu"]:checked')?.value || 'open';
+    const gpuModel = document.querySelector('input[name="gpuModel"]:checked')?.value || 'unspecified';
+    const storage = storageInput?.value || '2';
+    const cooling = document.querySelector('input[name="cooling"]:checked')?.value || 'unspecified';
+    const lighting = document.querySelector('input[name="lighting"]:checked')?.value || 'unspecified';
+    const os = document.querySelector('input[name="os"]:checked')?.value || 'none';
+    const distro =
+      os === 'linux'
+        ? document.querySelector('input[name="distro"]:checked')?.value || 'unspecified'
+        : 'n/a';
+    const notes = document.querySelector('textarea[name="notes"]')?.value || '';
+
+    const subject = `Custom PC Quote — $${budget}`;
+    const body = [
+      'Hi Builders,',
+      '',
+      'I would like a custom PC quote with the following preferences:',
+      `- Budget: $${budget}`,
+      `- Name: ${name || 'N/A'}`,
+      `- CPU preference: ${cpu}`,
+      `- RAM: ${ram}GB`,
+      `- GPU type: ${gpu}`,
+      `- GPU model: ${gpuModel}`,
+      `- Storage: ${storage}TB`,
+      `- Cooling: ${cooling}`,
+      `- Lighting: ${lighting}`,
+      `- OS: ${os}${os === 'linux' ? ` (${distro})` : ''}`,
+      `- Notes: ${notes || 'N/A'}`,
+      '',
+      'Thanks,',
+      name ? `- ${name}` : '- ',
+    ].join('\n');
+
+    const mailto = `mailto:hello@builders.bybrooklyn.dev?subject=${encodeURIComponent(
+      subject
+    )}&body=${encodeURIComponent(body)}`;
+    return mailto;
+  };
+
+  quoteButton?.addEventListener('click', () => {
+    window.location.href = buildMailto();
+  });
+</script>

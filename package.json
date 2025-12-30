@@ -1,5 +1,5 @@
 {
-  "name": "cachyos-website",
+  "name": "builders-website",
   "type": "module",
   "version": "0.0.1",
   "private": true,
@@ -27,7 +27,6 @@
   },
   "dependencies": {
     "@astrojs/react": "^4.4.2",
-    "@astrojs/rss": "^4.0.14",
     "@astrojs/sitemap": "^3.6.0",
     "@astrolib/seo": "^1.0.0-beta.8",
     "@fontsource-variable/inter": "^5.2.8",
